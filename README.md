@@ -7,7 +7,7 @@ Built with **React**, **Supabase**, and **Tailwind CSS**, featuring authenticati
 
 ## 🚀 Live Demo
 
-🔗 **Live App:** https://your-live-demo-link.vercel.app  
+🔗 **Live App:** https://full-stack-web-application-creative.vercel.app/
 🔗 **GitHub Repo:** https://github.com/debangshucode/Full-Stack-Web-Application-Creative-Showcase
 
 ---
