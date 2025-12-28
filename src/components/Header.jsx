@@ -22,7 +22,7 @@ export const Header = () => {
             </span>
           </Link>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 md:w-[20%] w-[100%]">
             <button
               onClick={toggleTheme}
               className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"

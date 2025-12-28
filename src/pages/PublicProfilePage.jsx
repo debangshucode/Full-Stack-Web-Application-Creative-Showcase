@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
-import { ImageGrid } from '../components/ImageGrid';
-import { FullScreenViewer } from '../components/FullScreenViewer';
-import { User, Calendar, Image as ImageIcon } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { supabase } from "../lib/supabase";
+import { ImageGrid } from "../components/ImageGrid";
+import { FullScreenViewer } from "../components/FullScreenViewer";
+import { User, Calendar, Image as ImageIcon } from "lucide-react";
 
 export const PublicProfilePage = () => {
   const { username } = useParams();
@@ -22,9 +22,9 @@ export const PublicProfilePage = () => {
   const fetchProfileAndImages = async () => {
     try {
       const { data: profileData, error: profileError } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('username', username)
+        .from("profiles")
+        .select("*")
+        .eq("username", username)
         .maybeSingle();
 
       if (profileError) throw profileError;
@@ -38,15 +38,15 @@ export const PublicProfilePage = () => {
       setProfile(profileData);
 
       const { data: imagesData, error: imagesError } = await supabase
-        .from('images')
-        .select('*, profiles(*)')
-        .eq('user_id', profileData.id)
-        .order('created_at', { ascending: false });
+        .from("images")
+        .select("*, profiles(*)")
+        .eq("user_id", profileData.id)
+        .order("created_at", { ascending: false });
 
       if (imagesError) throw imagesError;
       setImages(imagesData || []);
     } catch (error) {
-      console.error('Error fetching profile:', error);
+      console.error("Error fetching profile:", error);
       setNotFound(true);
     } finally {
       setLoading(false);
@@ -56,9 +56,9 @@ export const PublicProfilePage = () => {
   const handleImageClick = async (image) => {
     setSelectedImage(image);
     await supabase
-      .from('images')
+      .from("images")
       .update({ views: (image.views || 0) + 1 })
-      .eq('id', image.id);
+      .eq("id", image.id);
   };
 
   if (loading) {
@@ -104,13 +104,16 @@ export const PublicProfilePage = () => {
               )}
             </div>
 
-            <h1 className="text-3xl font-bold text-white mb-2">
+            <h1 className="text-3xl font-bold text-white mb-2 break-words">
               {profile.full_name || profile.username}
             </h1>
+
             <p className="text-white/80 text-lg mb-4">@{profile.username}</p>
 
             {profile.bio && (
-              <p className="text-white/90 max-w-2xl mx-auto mb-6">{profile.bio}</p>
+              <p className="text-white/90 max-w-2xl mx-auto mb-6">
+                {profile.bio}
+              </p>
             )}
 
             <div className="flex items-center justify-center space-x-6 text-white/80">
@@ -120,7 +123,9 @@ export const PublicProfilePage = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <Calendar className="w-5 h-5" />
-                <span>Joined {new Date(profile.created_at).toLocaleDateString()}</span>
+                <span>
+                  Joined {new Date(profile.created_at).toLocaleDateString()}
+                </span>
               </div>
             </div>
           </div>
@@ -133,7 +138,8 @@ export const PublicProfilePage = () => {
             Artwork Gallery
           </h2>
           <p className="text-gray-600 dark:text-gray-400">
-            Explore {profile.full_name || profile.username}'s creative collection
+            Explore {profile.full_name || profile.username}'s creative
+            collection
           </p>
         </div>
 
