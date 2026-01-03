@@ -17,12 +17,12 @@ export const Header = () => {
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2 group">
             <Palette className="w-8 h-8 text-light-primary dark:text-dark-highlight transition-transform group-hover:rotate-12" />
-            <span className="text-xl font-bold bg-gradient-to-r from-light-primary to-light-secondary dark:from-dark-secondary dark:to-dark-highlight bg-clip-text text-transparent">
+            <span className="font-script text-3xl font-bold bg-gradient-to-r from-light-primary to-light-secondary dark:from-dark-secondary dark:to-dark-highlight bg-clip-text text-transparent">
               Creative Showcase
             </span>
           </Link>
 
-          <div className="flex items-center space-x-4 md:w-[20%] w-[100%]">
+          <div className="flex items-center space-x-4 lg:w-[20%] md:w-[30%] w-[100%]">
             <button
               onClick={toggleTheme}
               className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
@@ -69,7 +69,7 @@ export const Header = () => {
                 </Link>
                 <Link
                   to="/signup"
-                  className="px-4 py-2 rounded-lg bg-light-primary dark:bg-dark-secondary text-white hover:bg-light-secondary dark:hover:bg-dark-primary transition-colors"
+                  className="px-2 py-2 rounded-lg bg-light-primary dark:bg-dark-secondary text-white hover:bg-light-secondary dark:hover:bg-dark-primary transition-colors"
                 >
                   Sign Up
                 </Link>

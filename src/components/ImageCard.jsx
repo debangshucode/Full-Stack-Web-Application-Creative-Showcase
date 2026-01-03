@@ -27,7 +27,7 @@ export const ImageCard = ({ image, onClick }) => {
               className="flex items-center space-x-2 hover:text-light-highlight dark:hover:text-dark-highlight transition-colors"
             >
               <User className="w-4 h-4" />
-              <span>{image.profiles?.username || 'Anonymous'}</span>
+              <span className='font-script'>{image.profiles?.username || 'Anonymous'}</span>
             </Link>
 
             <div className="flex items-center space-x-1">

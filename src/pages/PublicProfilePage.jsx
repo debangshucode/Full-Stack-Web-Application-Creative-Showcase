@@ -98,13 +98,13 @@ export const PublicProfilePage = () => {
                   className="w-full h-full rounded-full object-cover"
                 />
               ) : (
-                <span className="text-4xl font-bold text-light-primary dark:text-dark-highlight">
+                <span className="font-script text-4xl font-bold text-light-primary dark:text-dark-highlight">
                   {profile.username?.charAt(0).toUpperCase()}
                 </span>
               )}
             </div>
 
-            <h1 className="text-3xl font-bold text-white mb-2 break-words">
+            <h1 className="font-script text-3xl font-bold text-white mb-2 break-words">
               {profile.full_name || profile.username}
             </h1>
 

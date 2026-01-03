@@ -1,23 +1,44 @@
-import { X, User, Eye, Calendar } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { X, User, Eye, Calendar, Share2 } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 export const FullScreenViewer = ({ image, onClose }) => {
   useEffect(() => {
+  
     const handleEscape = (e) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === "Escape") onClose();
     };
-    document.addEventListener('keydown', handleEscape);
-    document.body.style.overflow = 'hidden';
+    document.addEventListener("keydown", handleEscape);
+    document.body.style.overflow = "hidden";
 
     return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
     };
   }, [onClose]);
 
   if (!image) return null;
+  const handleShare = async () => {
+      const shareUrl = `${window.location.origin}/profile/${image.profiles?.username}`;
+      const shareText = `${image.title || "Artwork"} by ${
+        image.profiles?.username
+      }`;
 
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title: image.title || "Creative Showcase",
+            text: shareText,
+            url: shareUrl,
+          });
+        } else {
+          await navigator.clipboard.writeText(shareUrl);
+          alert("Link copied to clipboard!");
+        }
+      } catch (error) {
+        console.error("Share failed:", error);
+      }
+    };
   return (
     <div
       className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
@@ -38,7 +59,7 @@ export const FullScreenViewer = ({ image, onClose }) => {
         <div className="flex-1 flex items-center justify-center">
           <img
             src={image.image_url}
-            alt={image.title || 'Artwork'}
+            alt={image.title || "Artwork"}
             className="max-w-full max-h-full object-contain rounded-lg"
           />
         </div>
@@ -65,10 +86,10 @@ export const FullScreenViewer = ({ image, onClose }) => {
                 <User className="w-5 h-5 text-white" />
               </div>
               <div>
-                <p className="font-medium text-gray-900 dark:text-white">
+                <p className="font-script font-medium text-gray-900 dark:text-white">
                   {image.profiles?.full_name || image.profiles?.username}
                 </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="font-script text-sm text-gray-500 dark:text-gray-400">
                   @{image.profiles?.username}
                 </p>
               </div>
@@ -85,6 +106,13 @@ export const FullScreenViewer = ({ image, onClose }) => {
                 <span>{new Date(image.created_at).toLocaleDateString()}</span>
               </div>
             </div>
+            <button
+              onClick={handleShare}
+              className="w-full flex items-center justify-center space-x-2 py-3 mt-4 rounded-lg bg-gradient-to-r from-light-primary to-light-secondary dark:from-dark-secondary dark:to-dark-highlight text-white font-semibold hover:shadow-lg hover:scale-105 transition-all"
+            >
+              <Share2 className="w-5 h-5" />
+              <span>Share Artwork</span>
+            </button>
           </div>
         </div>
       </div>

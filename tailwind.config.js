@@ -4,6 +4,11 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+        heading: ['"Abril Fatface"', 'serif'],
+        script: ['"Dancing Script"', 'cursive'],
+        sans: ['ui-sans-serif', 'system-ui'],
+      },
       colors: {
         light: {
           primary: '#4D2B8C',

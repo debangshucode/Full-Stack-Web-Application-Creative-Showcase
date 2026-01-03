@@ -66,7 +66,7 @@ export const SignUpPage = () => {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Username */}
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <label className="block dark:text-white text-sm font-medium mb-2">
                 Username *
               </label>
               <div className="relative">
@@ -90,7 +90,7 @@ export const SignUpPage = () => {
 
             {/* Full Name */}
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <label className="block dark:text-white text-sm font-medium mb-2">
                 Full Name
               </label>
               <div className="relative">
@@ -107,7 +107,7 @@ export const SignUpPage = () => {
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <label className="block dark:text-white text-sm font-medium mb-2">
                 Email Address *
               </label>
               <div className="relative">
@@ -125,7 +125,7 @@ export const SignUpPage = () => {
 
             {/* Password */}
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <label className="block dark:text-white text-sm font-medium mb-2">
                 Password *
               </label>
               <div className="relative">

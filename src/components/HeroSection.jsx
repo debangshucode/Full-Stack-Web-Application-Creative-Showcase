@@ -5,7 +5,7 @@ import LightRays from './LightRays';
 export default function HeroSection() {
   return (
     <section className="relative h-[600px] sm:h-[720px] overflow-hidden">
-      {/* 🔥 Light Rays Background */}
+
       <div className="absolute inset-0">
         <LightRays
           raysOrigin="top-center"
@@ -22,23 +22,23 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* 🎨 Color Overlay (keeps your theme) */}
+
       <div className="absolute inset-0 bg-gradient-to-br from-light-primary/80 via-light-secondary/70 to-light-accent/80 dark:from-dark-primary/85 dark:via-dark-secondary/75 dark:to-dark-accent/85" />
 
-      {/* 🖤 Contrast Overlay */}
+ 
       <div className="absolute inset-0 bg-black/30" />
 
-      {/* 🌟 CONTENT */}
+
       <div className="relative z-10 flex items-center justify-center h-full">
         <div className="max-w-4xl mx-auto px-4 text-center text-white">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm mb-6">
             <Sparkles className="w-5 h-5" />
-            <span className="text-sm font-medium">
+            <span className="font-script text-md font-medium">
               Showcase Your Creativity
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
+          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-medium mb-6">
             Where Artists Come to{' '}
             <span className="bg-gradient-to-r from-white to-light-highlight bg-clip-text text-transparent">
               Shine

@@ -47,7 +47,7 @@ export const LoginPage = () => {
         <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <label className="block dark:text-white text-sm font-medium mb-2">
                 Email Address
               </label>
               <div className="relative">
@@ -64,7 +64,7 @@ export const LoginPage = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">
+              <label className="block dark:text-white text-sm font-medium mb-2">
                 Password
               </label>
               <div className="relative">

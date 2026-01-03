@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 
-const AuthContext = createContext({});
+const AuthContext = createContext(null);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -26,17 +26,17 @@ export const AuthProvider = ({ children }) => {
       }
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      (async () => {
+    const { data: { subscription } } =
+      supabase.auth.onAuthStateChange((_event, session) => {
         setUser(session?.user ?? null);
+
         if (session?.user) {
-          await fetchProfile(session.user.id);
+          fetchProfile(session.user.id);
         } else {
           setProfile(null);
           setLoading(false);
         }
-      })();
-    });
+      });
 
     return () => subscription.unsubscribe();
   }, []);
@@ -51,48 +51,88 @@ export const AuthProvider = ({ children }) => {
 
       if (error) throw error;
       setProfile(data);
-    } catch (error) {
-      console.error('Error fetching profile:', error);
+    } catch (err) {
+      console.error('Error fetching profile:', err);
     } finally {
       setLoading(false);
     }
   };
 
+  /* ===========================
+     SIGN UP (FIXED)
+  ============================ */
   const signUp = async (email, password, username, fullName) => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          username,
-          full_name: fullName,
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            username,
+            full_name: fullName,
+          },
         },
-      },
-    });
-    return { data, error };
+      });
+
+      if (error) return { error };
+
+      // 🔥 KEY FIX: detect existing email
+      if (data.user && data.user.identities?.length === 0) {
+        return {
+          error: new Error(
+            'An account with this email already exists. Please log in.'
+          ),
+        };
+      }
+
+      return { error: null };
+    } catch (err) {
+      return { error: err };
+    }
   };
 
+  /* ===========================
+     SIGN IN
+  ============================ */
   const signIn = async (email, password) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    return { data, error };
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      return { error };
+    } catch (err) {
+      return { error: err };
+    }
   };
 
+  /* ===========================
+     SIGN OUT (SAFE)
+  ============================ */
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    return { error };
+    try {
+      await supabase.auth.signOut();
+    } catch (err) {
+      console.warn('Logout error:', err);
+    } finally {
+      setUser(null);
+      setProfile(null);
+    }
   };
 
-  const value = {
-    user,
-    profile,
-    loading,
-    signUp,
-    signIn,
-    signOut,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        profile,
+        loading,
+        signUp,
+        signIn,
+        signOut,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
